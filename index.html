@@ -4,14 +4,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
     <title>Ahime - Neon 3D</title>
     <script src="js/node_modules/jquery/dist/jquery.min.js"></script>
     <script src="js/node_modules/three/build/three.min.js"></script>
+    <script src="js/node_modules/three/examples/js/geometries/TextGeometry.js"></script>
+    <script src="js/node_modules/three/examples/js/controls/DragControls.js"></script>
+    <script src="js/node_modules/three/examples/js/controls/OrbitControls.js"></script>
+    <script src="js/node_modules/three/examples/js/loaders/FontLoader.js"></script>
+
     <script src="js/editor.js"></script>
 </head>
 <body>
     <div class="entry-content">
-
+        <input type="text" id="text-typing" placeholder="Your text">
+        <div id="neon">Description</div>
     </div>
 </body>
 </html>
