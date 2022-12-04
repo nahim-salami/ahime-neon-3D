@@ -38,7 +38,6 @@ $(function(){
         font = response;
 
         let neonText = new THREE.TextGeometry( "Your text",  {
-
             size: size,
             height: height,
             curveSegments: curveSegments,
@@ -47,7 +46,7 @@ $(function(){
             style: style,
             bevelThickness: bevelThickness,
             bevelSize: bevelSize,
-            bevelEnabled: bevelEnabled,
+            bevelEnabled: bevelEnabled
         } );
     
         neonText.computeBoundingBox();
@@ -56,12 +55,24 @@ $(function(){
 
         const centerOffset = - 0.5 * ( neonText.boundingBox.max.x - neonText.boundingBox.min.x );
 
-        var material = new THREE.MeshBasicMaterial({color: "yellow"});
-        var textGeo = new THREE.Mesh(neonText, material); 
+        var material = new THREE.MeshBasicMaterial({color: "blue"});
+        var material2 = new THREE.MeshPhongMaterial({emissive: "yellow", emissiveIntensity:0.2});
+        var material3 = new THREE.MeshPhongMaterial({emissive: 0xaaaaaa, emissiveIntensity:0.1});
+        var textGeo = new THREE.Mesh(neonText, [material2, material3]); 
         scene.add(textGeo);
         textGeo.position.x = centerOffset;
-        textGeo.position.y = 30;
-        textGeo.position.z = 0;
+        textGeo.position.y = 0;
+        textGeo.position.z = 100;
+
+        var rdcolor = [0x0000ff, 0xffffff, 0xff0000];
+
+        setInterval(function(){
+            material2.emissiveIntensity += .1;
+            if(material2.emissiveIntensity >= 1) material2.emissiveIntensity = .1;
+            let rd = parseInt((Math.random() * rdcolor.length));
+            //material.color = rdcolor[rd];
+            render();
+        }, 500)
         // textGeo.rotation.x = 0;
         // textGeo.rotation.y = Math.PI * 2;
 
@@ -97,5 +108,4 @@ $(function(){
 
     render();
 
-   
 })
