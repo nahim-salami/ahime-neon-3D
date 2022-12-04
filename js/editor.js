@@ -1,6 +1,6 @@
 $(function(){
     var height = 20,
-        size = 70,
+        size = 200,
         hover = 30,
         curveSegments = 4,
         bevelThickness = 2,
@@ -9,7 +9,7 @@ $(function(){
         bevelEnabled = true,
         fontName = "optimer",
         font = "optimer", // helvetiker, optimer, gentilis, droid sans, droid serif
-        fontWeight = "bold", // normal bold
+        fontWeight = "normal", // normal bold
         style = "normal"; // normal italic
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0x8cc7de);
@@ -27,12 +27,13 @@ $(function(){
     // Get text from hash
 
     const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-    camera.position.set( 0, 400, 700 );
+    camera.position.set( 0, 50, 700 );
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setPixelRatio( window.devicePixelRatio );
     let neonContainer = document.querySelector('#neon');
     const loader = new THREE.FontLoader();
-    loader.load( 'js/node_modules/three/examples/fonts/droid/droid_serif_regular.typeface.json', function ( response ) {
+    var globalText;
+    loader.load( 'js/node_modules/three/examples/fonts/droid/droid_sans_bold.typeface.json', function ( response ) {
 
         font = response;
 
@@ -51,6 +52,8 @@ $(function(){
     
         neonText.computeBoundingBox();
 
+        globalText = neonText;
+
         const centerOffset = - 0.5 * ( neonText.boundingBox.max.x - neonText.boundingBox.min.x );
 
         var material = new THREE.MeshBasicMaterial({color: "yellow"});
@@ -58,10 +61,26 @@ $(function(){
         scene.add(textGeo);
         textGeo.position.x = centerOffset;
         textGeo.position.y = 30;
-        textGeo.position.z = -30;
+        textGeo.position.z = 0;
         // textGeo.rotation.x = 0;
         // textGeo.rotation.y = Math.PI * 2;
 
+        // const dragControls = new THREE.DragControls( neonText, camera, renderer.domElement );
+
+        // // add event listener to highlight dragged objects
+
+        // dragControls.addEventListener( 'dragstart', function ( event ) {
+
+        //     event.object.material.emissive.set( 0xaaaaaa );
+
+        // } );
+
+        // dragControls.addEventListener( 'dragend', function ( event ) {
+
+        //     event.object.material.emissive.set( 0x000000 );
+
+        // } );
+        render();
     } );
 
     renderer.setSize( neonContainer.offsetWidth, neonContainer.offsetHeight );
@@ -77,4 +96,6 @@ $(function(){
     window.addEventListener('resize', render);
 
     render();
+
+   
 })
